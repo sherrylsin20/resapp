@@ -1,6 +1,7 @@
 # ResApp
 
 Flutter project for finals, implementing API in an mobile app / web.
+
 Group 4:
 - Amelia Qatrunnada
 - Aransa Fitra Prawira

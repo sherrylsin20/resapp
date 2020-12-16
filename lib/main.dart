@@ -61,7 +61,7 @@ class _ResAppState extends State<ResApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white12,
+        backgroundColor: Colors.white,
         title: Image.asset('assets/images/resapp.png', width: 100),
         centerTitle: true,
         elevation: 0,
@@ -69,7 +69,7 @@ class _ResAppState extends State<ResApp> {
       body: buildPageView(),
       bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          backgroundColor: Colors.white12,
+          backgroundColor: Colors.white,
           color: Colors.deepOrange,
           index: _page,
           animationDuration: Duration(milliseconds: 500),

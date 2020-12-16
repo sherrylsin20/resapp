@@ -15,14 +15,14 @@ class Recipes {
     this.dificulty,
   });
 
-  factory Recipes.fromMap(Map<String, dynamic> map) {
+  factory Recipes.fromJson(Map<String, dynamic> json) {
     return Recipes(
-      title: map['title'],
-      thumb: map['thumb'],
-      key: map['key'],
-      times: map['times'],
-      portion: map['portion'],
-      dificulty: map['dificulty'],
+      title: json['title'],
+      thumb: json['thumb'],
+      key: json['key'],
+      times: json['times'],
+      portion: json['portion'],
+      dificulty: json['dificulty'],
     );
   }
 }
