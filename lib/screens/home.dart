@@ -5,8 +5,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:resapp/services/webservice.dart';
 
+import 'detail.dart';
+
 class HomePage extends StatefulWidget {
   @override
+  final List<Recipes> recipes;
+  HomePage({Key key, @required this.recipes}) : super(key: key);
+
   _HomepageState createState() => _HomepageState();
 }
 
@@ -54,7 +59,13 @@ class _HomepageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return InkWell(
                       onTap: () {
-                        debugPrint(recipes[index].key);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailPage(),
+                              settings:
+                                  RouteSettings(arguments: recipes[index]),
+                            ));
                       },
                       child: Container(
                           height: 170.0,

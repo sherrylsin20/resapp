@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:resapp/models/details.dart';
 import 'package:resapp/models/recipes.dart';
 
 class APIService {
@@ -18,5 +19,17 @@ class APIService {
     }
     print("List Size: ${list.length}");
     return list;
+  }
+
+  Future getDetail(String key) async {
+    final String url =
+        'https://masak-apa.tomorisakura.vercel.app/api/recipe/$key';
+
+    var res = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+
+    final response = json.decode(res.body);
+    final detail = Details.fromJson(response);
+    return detail;
   }
 }
