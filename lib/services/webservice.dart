@@ -21,15 +21,22 @@ class APIService {
     return list;
   }
 
-  Future getDetail(String key) async {
+  Future<Details> getDetail(String key) async {
     final String url =
         'https://masak-apa.tomorisakura.vercel.app/api/recipe/$key';
 
     var res = await http
         .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
 
-    final response = json.decode(res.body);
-    final detail = Details.fromJson(response);
-    return detail;
+    if (res.statusCode == 200) {
+      // return Details.fromJson(jsonDecode(res.body));
+      final response = json.decode(res.body);
+      final detail = Details.fromJson(response);
+      //print(detail);
+      return detail;
+    }
+    // final response = json.decode(res.body);
+    // final detail = Details.fromJson(response);
+    // return detail;
   }
 }
