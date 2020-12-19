@@ -4,8 +4,17 @@ import 'package:resapp/models/details.dart';
 import 'package:resapp/models/recipes.dart';
 import 'package:resapp/services/webservice.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
+  @override
+  final List<Recipes> recipes;
+  DetailPage({Key key, @required this.recipes}) : super(key: key);
+
+  _DetailState createState() => _DetailState();
+}
+
+class _DetailState extends State<DetailPage> {
   Future<Details> details;
+  Color _iconColor = Colors.grey;
 
   Widget detailData(Details details) {
     List<String> ingredients = details.ingredient;
@@ -72,10 +81,23 @@ class DetailPage extends StatelessWidget {
                   Text('${details.servings}',
                       style: TextStyle(
                         fontSize: 18.0,
-                      ))
+                      )),
+                  Container(width: 80.0),
+                  IconButton(
+                    icon: Icon(Icons.favorite),
+                    color: _iconColor,
+                    iconSize: 45.0,
+                    onPressed: () {
+                      setState(() {
+                        _iconColor = _iconColor == Colors.grey
+                            ? Colors.red
+                            : Colors.grey;
+                      });
+                    },
+                  )
                 ]),
                 Container(
-                  padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 9.0),
+                  padding: EdgeInsets.fromLTRB(0.0, 00.0, 0.0, 9.0),
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     'Ingredients',
