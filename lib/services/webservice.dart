@@ -33,6 +33,8 @@ class APIService {
       final response = json.decode(res.body);
       final detail = Details.fromJson(response);
       return detail;
+    } else {
+      return null;
     }
   }
 
@@ -75,7 +77,6 @@ class APIService {
   Future<List<Recipes>> getSearchRes(String query) async {
     List<Recipes> list;
 
-    String search = query.replaceAll(new RegExp(' '), '+');
     final String url =
         'https://masak-apa.tomorisakura.vercel.app/api/search/?q=' +
             query.replaceAll(new RegExp(' '), '+');

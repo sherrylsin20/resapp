@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:resapp/screens/categories.dart';
 import 'package:resapp/screens/home.dart';
 import 'package:resapp/screens/saved.dart';
+import 'screens/splash.dart';
 
 void main() => runApp(App());
 
@@ -11,7 +12,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ResApp',
-      home: ResApp(),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
@@ -51,11 +53,13 @@ class _ResAppState extends State<ResApp> {
   }
 
   void bottomTapped(int index) {
-    setState(() {
-      _page = index;
-      controller.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.linear);
-    });
+    setState(
+      () {
+        _page = index;
+        controller.animateToPage(index,
+            duration: Duration(milliseconds: 500), curve: Curves.linear);
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -68,34 +72,37 @@ class _ResAppState extends State<ResApp> {
       ),
       body: buildPageView(),
       bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
-          backgroundColor: Colors.white,
-          color: Colors.deepOrange,
-          index: _page,
-          animationDuration: Duration(milliseconds: 500),
-          items: <Widget>[
-            Icon(
-              Icons.list,
-              size: 35,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.home,
-              size: 35,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.bookmark,
-              size: 35,
-              color: Colors.white,
-            )
-          ],
-          onTap: (index) {
-            debugPrint(index.toString());
-            setState(() {
+        key: _bottomNavigationKey,
+        backgroundColor: Colors.white,
+        color: Colors.deepOrange,
+        index: _page,
+        animationDuration: Duration(milliseconds: 500),
+        items: <Widget>[
+          Icon(
+            Icons.list,
+            size: 35,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.home,
+            size: 35,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.bookmark,
+            size: 35,
+            color: Colors.white,
+          )
+        ],
+        onTap: (index) {
+          debugPrint(index.toString());
+          setState(
+            () {
               bottomTapped(index);
-            });
-          }),
+            },
+          );
+        },
+      ),
     );
   }
 }
