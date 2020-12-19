@@ -20,7 +20,8 @@ class _CategoryListState extends State<CategoryList> {
 
   Widget listViewWidget(List<Recipes> recipes) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
+      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
@@ -38,7 +39,7 @@ class _CategoryListState extends State<CategoryList> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  ': $header',
+                  '$header',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -46,24 +47,24 @@ class _CategoryListState extends State<CategoryList> {
                 ),
               ),
             ),
-            Container(
-              height: 530,
-              child: Expanded(
-                  child: ListView.builder(
-                itemCount: 9,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailPage(),
-                              settings:
-                                  RouteSettings(arguments: recipes[index]),
-                            ));
-                      },
-                      child: Container(
-                          child: Stack(children: <Widget>[
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 9,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(),
+                        settings: RouteSettings(arguments: recipes[index]),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    child: Stack(
+                      children: <Widget>[
                         Container(
                           child: Container(
                             margin: EdgeInsets.fromLTRB(85.0, 10.0, 16.0, 16.0),
@@ -72,32 +73,42 @@ class _CategoryListState extends State<CategoryList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(height: 4.0),
-                                Text('${recipes[index].title}',
-                                    overflow: TextOverflow.clip,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    )),
+                                Text(
+                                  '${recipes[index].title}',
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                ),
                                 Container(height: 20.0),
-                                Row(children: <Widget>[
-                                  Icon(
-                                    Icons.warning_amber_outlined,
-                                    size: 16.0,
-                                  ),
-                                  Container(width: 8.0),
-                                  Text('${recipes[index].dificulty}',
-                                      style: TextStyle(fontSize: 11.0)),
-                                ]),
-                                Row(children: <Widget>[
-                                  Icon(
-                                    Icons.timer,
-                                    size: 16.0,
-                                  ),
-                                  Container(width: 8.0),
-                                  Text('${recipes[index].times}',
-                                      style: TextStyle(fontSize: 11.0)),
-                                ]),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.warning_amber_outlined,
+                                      size: 16.0,
+                                    ),
+                                    Container(width: 8.0),
+                                    Text(
+                                      '${recipes[index].dificulty}',
+                                      style: TextStyle(fontSize: 11.0),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.timer,
+                                      size: 16.0,
+                                    ),
+                                    Container(width: 8.0),
+                                    Text(
+                                      '${recipes[index].times}',
+                                      style: TextStyle(fontSize: 11.0),
+                                    ),
+                                  ],
+                                ),
                                 Row(
                                   children: <Widget>[
                                     Icon(
@@ -105,8 +116,10 @@ class _CategoryListState extends State<CategoryList> {
                                       size: 16.0,
                                     ),
                                     Container(width: 6.0),
-                                    Text('${recipes[index].portion}',
-                                        style: TextStyle(fontSize: 11.0))
+                                    Text(
+                                      '${recipes[index].portion}',
+                                      style: TextStyle(fontSize: 11.0),
+                                    ),
                                   ],
                                 )
                               ],
@@ -128,22 +141,27 @@ class _CategoryListState extends State<CategoryList> {
                           ),
                         ),
                         Container(
-                            margin: EdgeInsets.fromLTRB(10.0, 7.0, 0, 11.5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6.0),
-                              child: Image(
-                                image: NetworkImage('${recipes[index].thumb}'),
-                                height: 140.0,
-                                width: 140.0,
-                                fit: BoxFit.cover,
-                              ),
-                            )),
-                      ])));
-                },
-              )),
-            )
+                          margin: EdgeInsets.fromLTRB(10.0, 7.0, 0, 11.5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6.0),
+                            child: Image(
+                              image: NetworkImage('${recipes[index].thumb}'),
+                              height: 140.0,
+                              width: 140.0,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
@@ -151,13 +169,17 @@ class _CategoryListState extends State<CategoryList> {
     header = categories.category;
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: FutureBuilder(
-            future: APIService().getRecipesCat(categories.key),
-            builder: (context, snapshot) {
-              return snapshot.data != null
-                  ? listViewWidget(snapshot.data)
-                  : Center(child: CircularProgressIndicator());
-            }));
+      backgroundColor: Colors.white,
+      body: FutureBuilder(
+        future: APIService().getRecipesCat(categories.key),
+        builder: (context, snapshot) {
+          return snapshot.data != null
+              ? listViewWidget(snapshot.data)
+              : Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
+    );
   }
 }
