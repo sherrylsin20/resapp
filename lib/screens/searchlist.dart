@@ -32,7 +32,7 @@ class _SearchListState extends State<SearchList> {
           children: <Widget>[
             Container(
               width: 298.0,
-              margin: EdgeInsets.fromLTRB(8.0, 8.0, 1.0, 8.0),
+              margin: EdgeInsets.fromLTRB(8.0, 20.0, 1.0, 8.0),
               child: TextField(
                 controller: searchController,
                 decoration: InputDecoration(
@@ -60,7 +60,7 @@ class _SearchListState extends State<SearchList> {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          new SearchList(value: searchController.text),
+                          SearchList(value: searchController.text),
                     ));
               },
               elevation: 2.0,
@@ -91,17 +91,17 @@ class _SearchListState extends State<SearchList> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'New Recipes',
+                      'Search results',
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Container(
-                  height: 370,
+                  height: 510,
                   child: Expanded(
                       child: ListView.builder(
-                    itemCount: 9,
+                    itemCount: recipes.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: () {
