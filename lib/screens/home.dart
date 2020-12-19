@@ -124,7 +124,8 @@ class _HomepageState extends State<HomePage> {
                                 Container(height: 4.0),
                                 Text(
                                   '${recipes[index].title}',
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,

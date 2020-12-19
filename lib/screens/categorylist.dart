@@ -75,7 +75,8 @@ class _CategoryListState extends State<CategoryList> {
                                 Container(height: 4.0),
                                 Text(
                                   '${recipes[index].title}',
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -141,7 +142,7 @@ class _CategoryListState extends State<CategoryList> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(10.0, 7.0, 0, 11.5),
+                          margin: EdgeInsets.fromLTRB(10.0, 23.0, 0, 11.5),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(6.0),
                             child: Image(
