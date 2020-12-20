@@ -1,6 +1,6 @@
 # ResApp
 
-Flutter project for finals, implementing API in an mobile app / web.
+Flutter project for finals, implementing API in a mobile app / web.
 
 ### API Service
 -  Unofficial MasakApaHariIni API by tomorisakura
